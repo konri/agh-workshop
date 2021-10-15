@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 
 import { HomePage } from './app/components/HomePage/HomePage';
-import AghLogo from './agh-logo.png';
-import QualtricsLogo from './Qualtrics-logo.svg';
+import AghLogo from './assets/agh-logo.png';
+import QualtricsLogo from './assets/Qualtrics-logo.svg';
 import styled from 'styled-components';
 
 const Header = styled.div`
@@ -21,6 +21,10 @@ const Header = styled.div`
 `
 
 const AppName = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   font-size: 32px;
   color: #282c34;
 `
@@ -29,8 +33,10 @@ function App() {
   return (
     <div>
       <Header>
-        <img src={AghLogo} className="logo" alt="AghLogo" />
-        <AppName>Retrospective application</AppName>
+        <AppName>
+          <img src={AghLogo} className="logo" alt="AghLogo" />
+          Retrospective application
+        </AppName>
         <img src={QualtricsLogo} className="logo" alt="QualtricsLogo" />
       </Header>
 
