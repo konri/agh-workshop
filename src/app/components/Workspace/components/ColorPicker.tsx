@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+import { useOutsideAlerter } from './hooks/useOutsideAlerter';
 
 const Container = styled.div`
   position: relative;
@@ -27,22 +28,6 @@ const ColorPickerContainer = styled.div`
   background-color: #eeeeee;
 `;
 
-
-function useOutsideAlerter(ref: any, handleClick: any) {
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        handleClick();
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [ref]);
-}
-
 const colors = [
   '#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3',
   '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39',
@@ -57,7 +42,6 @@ export interface ColorPickerProps {
 export function ColorPicker({ color, selectColor }: ColorPickerProps) {
   const wrapperRef = useRef(null);
   const [showColors, setShowColor] = useState(false);
-  console.log(showColors);
   useOutsideAlerter(wrapperRef, () => {
     setShowColor(false);
   });
@@ -65,7 +49,6 @@ export function ColorPicker({ color, selectColor }: ColorPickerProps) {
   return (
     <Container>
       <ColorPickerSelector color={color} onClick={() => {
-        console.log('clicked2');
         setShowColor(true);
       }}/>
 
@@ -74,7 +57,6 @@ export function ColorPicker({ color, selectColor }: ColorPickerProps) {
           {
             colors.map((selectedColor: string) => (
               <ColorPickerSelector color={selectedColor} onClick={() => {
-                console.log('clicked');
                 setShowColor(false);
                 selectColor(selectedColor);
               }}/>
@@ -83,7 +65,5 @@ export function ColorPicker({ color, selectColor }: ColorPickerProps) {
         </ColorPickerContainer>
       )}
     </Container>
-
   );
-
 }
